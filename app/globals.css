@@ -14,7 +14,17 @@
   box-sizing: border-box;
 }
 
+input:focus {
+  outline: none;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   background: #f3f3f3;
+}
+
+@layer base {
+  :root {
+    --color-primary: 26 188 156;
+  }
 }

@@ -8,7 +8,7 @@ const Navbar = () => {
             <Image src="/assets/Logo.png" alt="Logo" width={150} height={24} />
         </div>
         <div>
-            switch theme
+            .
         </div>
     </nav>
   )
