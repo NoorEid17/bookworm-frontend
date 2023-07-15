@@ -17,7 +17,7 @@ const TokenRefresher = ({ children }: { children: ReactNode }) => {
       }
       const user = await jwtDecode(response.data.token);
       dispatch({ type: "LOGIN", payload: user });
-      setIsLoading(true);
+      setIsLoading(false);
     }
     refreshToken();
   }, []);
