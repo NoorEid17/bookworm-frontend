@@ -1,11 +1,14 @@
 "use client";
 import * as UserAPI from "@/api/user";
 import jwtDecode from "jwt-decode";
-import { ReactNode, useEffect, useContext } from "react";
+import { ReactNode, useEffect, useContext, useState } from "react";
 import { AuthContext } from "./AuthProvider";
+import Spinner from "./Spinner";
 
 const TokenRefresher = ({ children }: { children: ReactNode }) => {
   const { dispatch } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     async function refreshToken() {
       const response = await UserAPI.refreshToken();
@@ -13,13 +16,13 @@ const TokenRefresher = ({ children }: { children: ReactNode }) => {
         return;
       }
       const user = await jwtDecode(response.data.token);
-      console.log(user);
       dispatch({ type: "LOGIN", payload: user });
+      setIsLoading(true);
     }
     refreshToken();
   }, []);
 
-  return <div>{children}</div>;
+  return <div>{isLoading ? <Spinner /> : children}</div>;
 };
 
 export default TokenRefresher;

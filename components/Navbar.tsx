@@ -94,13 +94,14 @@ const AuthenticatedView = ({
           <div className="px-1 py-1 ">
             <Menu.Item>
               {({ active }) => (
-                <button
+                <Link
+                  href="/profile/edit"
                   className={`${
                     active ? "bg-primary text-white" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  Edit
-                </button>
+                  Edit Profile
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
