@@ -12,11 +12,15 @@ import { useRouter } from "next/navigation";
 
 const schema = yup.object({
   username: yup.string().required().min(3).max(20),
+  firstName: yup.string().required().min(3).max(20),
+  lastName: yup.string().required().min(3).max(20),
   password: yup.string().required().min(6).max(20),
 });
 
 type Inputs = {
   username: string;
+  firstName: string;
+  lastName: string;
   password: string;
 };
 
@@ -31,9 +35,9 @@ const page = () => {
   } = useForm({ resolver: yupResolver(schema) });
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setServerError("");
-    const response = await UserAPI.login(data);
-    if (response.statusText !== "OK") {
-      setServerError(response.data.msg);
+    const response = await UserAPI.signup(data);
+    if (response.statusText !== "Created") {
+      setServerError(response.data.validationErrors[0].msg);
     } else {
       dispatch({ type: "LOGIN", payload: response.data.user });
       axios.defaults.headers.common[
@@ -63,6 +67,32 @@ const page = () => {
         )}
       </div>
       <div className="flex flex-col gap-1">
+        <label>First Name</label>
+        <input
+          type="text"
+          className="bg-gray-200 rounded-sm py-1 px-4 text-sm"
+          {...register("firstName")}
+        />
+        {errors.firstName && (
+          <span className="text-red-400 text-sm">
+            {errors?.firstName?.message}
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col gap-1">
+        <label>Last Name</label>
+        <input
+          type="text"
+          className="bg-gray-200 rounded-sm py-1 px-4 text-sm"
+          {...register("lastName")}
+        />
+        {errors.lastName && (
+          <span className="text-red-400 text-sm">
+            {errors?.lastName?.message}
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col gap-1">
         <label>Password</label>
         <input
           type="password"
@@ -80,15 +110,15 @@ const page = () => {
           type="submit"
           className="bg-primary w-full text-white rounded-sm py-1 transition-all duration-300 hover:contrast-150 focus:contrast-150"
         >
-          LOGIN
+          SIGNUP
         </button>
         {serverError && (
           <span className="text-red-400 text-sm">{serverError}</span>
         )}
       </div>
       <span>Or</span>
-      <Link href="/signup" className="underline">
-        Create new account
+      <Link href="/login" className="underline">
+        Already have an account?
       </Link>
     </form>
   );

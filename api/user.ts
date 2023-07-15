@@ -17,3 +17,7 @@ export const refreshToken = (): Promise<AxiosResponse> => {
 export const logut = (): Promise<AxiosResponse> => {
   return axios.post("/user/logout", null, { withCredentials: true });
 };
+
+export const signup = (data: any): Promise<AxiosResponse> => {
+  return axios.post("/user/signup", data);
+};
