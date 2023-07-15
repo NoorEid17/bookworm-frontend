@@ -4,6 +4,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import * as UserAPI from "@/api/user";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/components/AuthProvider";
+import axios from "@/api/axios";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object({
   username: yup.string().required().min(3).max(20),
@@ -16,12 +21,27 @@ type Inputs = {
 };
 
 const page = () => {
+  const [serverError, setServerError] = useState("");
+  const router = useRouter();
+  const { dispatch } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setServerError("");
+    const response = await UserAPI.login(data);
+    if (response.statusText !== "OK") {
+      setServerError(response.data.msg);
+    } else {
+      dispatch({ type: "LOGIN", payload: response.data.user });
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `bearer ${response.data.token}`;
+      router.push("/");
+    }
+  };
 
   return (
     <form
@@ -62,6 +82,9 @@ const page = () => {
         >
           LOGIN
         </button>
+        {serverError && (
+          <span className="text-red-400 text-sm">{serverError}</span>
+        )}
       </div>
       <span>Or</span>
       <Link href="/signup" className="underline">

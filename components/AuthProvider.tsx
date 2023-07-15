@@ -38,7 +38,7 @@ export type AuthContext = {
 
 export const AuthContext = createContext<AuthContext>({
   state: initialState,
-  dispatch: () => null,
+  dispatch: (() => null) as Dispatch<any>,
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
