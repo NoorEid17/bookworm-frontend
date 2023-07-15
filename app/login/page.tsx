@@ -33,7 +33,7 @@ const page = () => {
     setServerError("");
     const response = await UserAPI.login(data);
     if (response.statusText !== "OK") {
-      setServerError(response.data.msg);
+      setServerError("invalid username or password!");
     } else {
       dispatch({ type: "LOGIN", payload: response.data.user });
       axios.defaults.headers.common[
