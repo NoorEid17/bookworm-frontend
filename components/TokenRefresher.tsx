@@ -13,6 +13,7 @@ const TokenRefresher = ({ children }: { children: ReactNode }) => {
     async function refreshToken() {
       const response = await UserAPI.refreshToken();
       if (response.statusText !== "OK") {
+        setIsLoading(false);
         return;
       }
       const user = await jwtDecode(response.data.token);
