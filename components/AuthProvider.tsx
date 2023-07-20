@@ -1,4 +1,5 @@
 "use client";
+import jwtDecode from "jwt-decode";
 import React, {
   createContext,
   useReducer,
@@ -6,9 +7,19 @@ import React, {
   type ReactNode,
 } from "react";
 
-const initialState = {
-  isAuthenticated: false,
-  user: null,
+const initialState = () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return {
+      isAuthenticated: false,
+      user: null,
+    };
+  }
+
+  return {
+    isAuthenticated: true,
+    user: jwtDecode(token),
+  };
 };
 
 const authReducer = (state: any, action: any) => {
@@ -37,12 +48,12 @@ export type AuthContext = {
 };
 
 export const AuthContext = createContext<AuthContext>({
-  state: initialState,
+  state: initialState(),
   dispatch: (() => null) as Dispatch<any>,
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const [state, dispatch] = useReducer(authReducer, initialState());
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
