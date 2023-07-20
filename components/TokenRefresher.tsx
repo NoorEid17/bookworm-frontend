@@ -1,29 +1,29 @@
 "use client";
 import * as UserAPI from "@/api/user";
+import { useQuery } from "@tanstack/react-query";
 import jwtDecode from "jwt-decode";
-import { ReactNode, useEffect, useContext, useState } from "react";
+import { ReactNode, useEffect, useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import Spinner from "./Spinner";
 
 const TokenRefresher = ({ children }: { children: ReactNode }) => {
   const { dispatch } = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data: token, isLoading } = useQuery({
+    queryKey: ["users", "token"],
+    queryFn: async () => await UserAPI.refreshToken(),
+    refetchInterval: 1000 * 60 * 5,
+    initialData: localStorage.getItem("token"),
+  });
 
   useEffect(() => {
-    async function refreshToken() {
-      const response = await UserAPI.refreshToken();
-      if (response.statusText !== "OK") {
-        setIsLoading(false);
-        return;
-      }
-      const user = await jwtDecode(response.data.token);
-      dispatch({ type: "LOGIN", payload: user });
-      setIsLoading(false);
+    if (!token) {
+      return;
     }
-    refreshToken();
-  }, []);
+    localStorage.setItem("token", token);
+    dispatch({ type: "LOGIN", payload: jwtDecode(token) });
+  }, [token]);
 
-  return <div>{isLoading ? <Spinner /> : children}</div>;
+  return <div>{isLoading ? <Spinner className="my-72" /> : children}</div>;
 };
 
 export default TokenRefresher;
