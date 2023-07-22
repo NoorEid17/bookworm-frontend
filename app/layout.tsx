@@ -21,10 +21,8 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
-          <TokenRefresher>
-            <Navbar />
-            {children}
-          </TokenRefresher>
+          <Navbar />
+          {children}
           <ReactQueryDevtools />
         </Providers>
       </body>

@@ -1,10 +1,12 @@
 import React from "react";
 import "./spinner.css";
 
-const Spinner = () => {
+const Spinner = ({ className }: { className?: string }) => {
   return (
-    <div className="text-center my-10">
-      <span className="loader mx-auto my-10 border-primary border-l-transparent"></span>
+    <div className={className}>
+      <span
+        className={`loader mx-auto border-primary border-l-transparent`}
+      ></span>
     </div>
   );
 };

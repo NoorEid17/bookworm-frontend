@@ -6,14 +6,18 @@ interface UserCredentials {
   password: string;
 }
 
+interface TokenResponse {
+  data: {
+    token: string;
+  };
+}
+
 export const login = (data: UserCredentials): Promise<AxiosResponse> => {
   return axios.post("/user/login", data, { withCredentials: true });
 };
 
-export const refreshToken = (): Promise<string> => {
-  return axios
-    .get("/user/token", { withCredentials: true })
-    .then((res) => res.data.token);
+export const refreshToken = (): Promise<AxiosResponse> => {
+  return axios.get("/user/token", { withCredentials: true });
 };
 
 export const logut = (): Promise<AxiosResponse> => {

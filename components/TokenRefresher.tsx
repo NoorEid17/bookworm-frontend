@@ -8,20 +8,27 @@ import Spinner from "./Spinner";
 
 const TokenRefresher = ({ children }: { children: ReactNode }) => {
   const { dispatch } = useContext(AuthContext);
-  const { data: token, isLoading } = useQuery({
+  const {
+    error,
+    data: response,
+    isLoading,
+  } = useQuery({
     queryKey: ["users", "token"],
     queryFn: async () => await UserAPI.refreshToken(),
     refetchInterval: 1000 * 60 * 5,
-    initialData: localStorage.getItem("token"),
   });
 
+  if (error) {
+  }
+
   useEffect(() => {
-    if (!token) {
-      return;
+    if (!response?.data.token) {
+      localStorage.removeItem("token");
+      return dispatch({ type: "LOGOUT" });
     }
-    localStorage.setItem("token", token);
-    dispatch({ type: "LOGIN", payload: jwtDecode(token) });
-  }, [token]);
+    localStorage.setItem("token", response.data.token);
+    dispatch({ type: "LOGIN", payload: jwtDecode(response.data.token) });
+  }, [response]);
 
   return <div>{isLoading ? <Spinner className="my-72" /> : children}</div>;
 };

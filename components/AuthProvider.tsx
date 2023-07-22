@@ -1,24 +1,28 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
 import jwtDecode from "jwt-decode";
 import React, {
   createContext,
+  useEffect,
   useReducer,
   type Dispatch,
   type ReactNode,
 } from "react";
+import * as UserAPI from "@/api/user";
+import Spinner from "./Spinner";
+import axios from "@/api/axios";
 
 const initialState = () => {
   const token = localStorage.getItem("token");
-  if (!token) {
+  if (token) {
     return {
-      isAuthenticated: false,
-      user: null,
+      isAuthenticated: true,
+      user: jwtDecode(token),
     };
   }
-
   return {
-    isAuthenticated: true,
-    user: jwtDecode(token),
+    isAuthenticated: false,
+    user: null,
   };
 };
 
@@ -54,10 +58,32 @@ export const AuthContext = createContext<AuthContext>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, initialState());
+  const {
+    error,
+    data: response,
+    isLoading,
+  } = useQuery({
+    queryKey: ["users", "token"],
+    queryFn: async () => await UserAPI.refreshToken(),
+    refetchInterval: 1000 * 60 * 5,
+  });
+
+  useEffect(() => {
+    if (!response) {
+      return;
+    }
+    const token = response?.data.token;
+    axios.defaults.headers["Authorization"] = `bearer ${token}`;
+    if (response?.statusText !== "OK") {
+      dispatch({ type: "LOGOUT" });
+      return;
+    }
+    dispatch({ type: "LOGIN", payload: jwtDecode(token) });
+  }, [response, error]);
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
-      {children}
+      {isLoading ? <Spinner className="my-72 text-center" /> : children}
     </AuthContext.Provider>
   );
 };
