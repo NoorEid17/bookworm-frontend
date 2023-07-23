@@ -1,9 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
-import TokenRefresher from "@/components/TokenRefresher";
 import Providers from "@/components/Providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Bookworm",
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <ToastContainer position="top-right" />
           <ReactQueryDevtools />
         </Providers>
       </body>
