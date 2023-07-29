@@ -3,9 +3,10 @@ import { createCategory } from "@/api/category";
 import { Dialog, Transition } from "@headlessui/react";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { AuthContext } from "./AuthProvider";
 import Spinner from "./Spinner";
 
 const Sidebar = () => {
@@ -21,6 +22,9 @@ export default Sidebar;
 function CreateCategoryModal() {
   let [isOpen, setIsOpen] = useState(false);
   const { register, handleSubmit } = useForm();
+  const {
+    state: { isAuthenticated },
+  } = useContext(AuthContext);
   const createCategoryMutation = useMutation({
     mutationFn: (data: any) => createCategory(data),
     onSuccess(response: AxiosResponse, variables, context) {
@@ -38,6 +42,9 @@ function CreateCategoryModal() {
   }
 
   function openModal() {
+    if (!isAuthenticated) {
+      return toast.error("Must login first!");
+    }
     setIsOpen(true);
   }
 
