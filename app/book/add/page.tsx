@@ -14,7 +14,7 @@ import Spinner from "@/components/Spinner";
 
 const schema = yup.object({
   title: yup.string().required().min(2).max(100),
-  description: yup.string().required().min(2).max(200),
+  description: yup.string().required().min(2).max(1000),
 });
 
 const page = () => {
