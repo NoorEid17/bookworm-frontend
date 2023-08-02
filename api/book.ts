@@ -1,3 +1,4 @@
+import { Book } from "@/components/BooksGroup";
 import axios from "./axios";
 
 export const addBook = async (data: any) => {
@@ -12,4 +13,14 @@ export const addBook = async (data: any) => {
     }
   }
   return axios.post("/book/create", formData, { withCredentials: true });
+};
+
+interface BooksResponse {
+  books: Book[];
+  nextPage: undefined | number;
+}
+
+export const fetchBooks = async ({ pageParam = 1 }): Promise<BooksResponse> => {
+  const { data } = await axios.get(`/book?page=${pageParam}`);
+  return data;
 };
