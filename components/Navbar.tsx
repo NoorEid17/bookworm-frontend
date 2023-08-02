@@ -5,11 +5,12 @@ import Link from "next/link";
 import { Dispatch, Fragment, useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import * as UserAPI from "@/api/user";
+import { BiSolidChevronDown } from "react-icons/bi";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(AuthContext);
   return (
-    <nav className="min-h-5 grid grid-cols-3 p-2">
+    <nav className="min-h-5 grid grid-cols-3 p-2 bg-white shadow-md shadow-emerald-400/10">
       <div></div>
       <div className="flex justify-center">
         <Link href="/">
@@ -54,7 +55,7 @@ const AuthenticatedView = ({
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="flex items-center align-middle justify-center rounded-md transition-colors hover:text-white hover:border-white hover:bg-primary border-2 border-primary text-slate-700 px-4 py-1 gap-1 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="flex items-center align-middle justify-center rounded-md transition-colors text-slate-700 px-4 py-1 gap-1 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           <Image
             className="rounded-full"
             src={
@@ -67,18 +68,7 @@ const AuthenticatedView = ({
             height="32"
           />
           {user.fullName}
-          <svg
-            height="24px"
-            width="24px"
-            id="Layer_1"
-            version="1.1"
-            viewBox="0 0 512 512"
-            xmlSpace="preserve"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-          >
-            <polygon points="396.6,160 416,180.7 256,352 96,180.7 115.3,160 256,310.5 " />
-          </svg>
+          <BiSolidChevronDown className="text-primary" />
         </Menu.Button>
       </div>
       <Transition
