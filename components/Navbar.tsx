@@ -10,7 +10,7 @@ import { BiSolidChevronDown } from "react-icons/bi";
 const Navbar = () => {
   const { state, dispatch } = useContext(AuthContext);
   return (
-    <nav className="min-h-5 grid grid-cols-3 p-2 bg-white shadow-md shadow-emerald-400/10">
+    <nav className="min-h-5 grid grid-cols-3 p-2 bg-white shadow-md shadow-emerald-400/10 w-full">
       <div></div>
       <div className="flex justify-center">
         <Link href="/">

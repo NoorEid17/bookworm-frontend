@@ -16,7 +16,7 @@ export interface Book {
 
 const BookCard = ({ book }: { book: Book }) => {
   return (
-    <div className="w-80 p-3 pt-20 pb-5 flex flex-col gap-3 text-sm bg-white drop-shadow-md rounded-md relative hover:-top-1">
+    <div className="max-sm:mt-24 max-sm:first:mt-2 max-w-xs p-3 pt-20 pb-5 flex flex-col gap-3 text-sm bg-white drop-shadow-md rounded-md relative hover:-top-1">
       <Link href={`/book/${book.slug}`}>
         <Image
           src={`http://localhost:5000/uploads/${book.cover}`}
