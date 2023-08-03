@@ -41,7 +41,7 @@ const BookCard = ({ book }: { book: Book }) => {
   );
 };
 
-const RatingSection = ({
+export const RatingSection = ({
   averageRating,
   reviewsCount,
 }: {
@@ -50,7 +50,7 @@ const RatingSection = ({
 }) => {
   const roundedRating = Math.round(averageRating);
   return (
-    <div className="flex mt-2 justify-between">
+    <div className="flex mt-2 justify-between items-center">
       <div className="flex">
         {[...Array(roundedRating)].map((value, i) => (
           <AiTwotoneStar color="#ffbb00" key={i} />
