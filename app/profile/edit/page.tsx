@@ -48,7 +48,7 @@ const page = () => {
     if (user.avatar) {
       setAvatarURL("http://localhost:5000/uploads/" + user.avatar);
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated]);
 
   const updateMutation = useMutation({
     mutationFn: (data) => UserAPI.update(data),

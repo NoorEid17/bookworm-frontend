@@ -12,6 +12,14 @@ interface TokenResponse {
   };
 }
 
+export interface User {
+  fullName: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  avatar: string;
+}
+
 export const login = (data: UserCredentials): Promise<AxiosResponse> => {
   return axios.post("/user/login", data, { withCredentials: true });
 };
@@ -25,7 +33,7 @@ export const logut = (): Promise<AxiosResponse> => {
 };
 
 export const signup = (data: any): Promise<AxiosResponse> => {
-  return axios.post("/user/signup", data);
+  return axios.post("/user/signup", data, { withCredentials: true });
 };
 
 export const update = (data: any) => {

@@ -35,7 +35,6 @@ const page = () => {
     if (response.statusText !== "OK") {
       setServerError("invalid username or password!");
     } else {
-      localStorage.setItem("token", response.data.token);
       dispatch({ type: "LOGIN", payload: response.data.user });
       axios.defaults.headers.common[
         "Authorization"

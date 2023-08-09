@@ -51,18 +51,28 @@ export const RatingSection = ({
   const roundedRating = Math.round(averageRating);
   return (
     <div className="flex mt-2 justify-between items-center">
-      <div className="flex">
-        {[...Array(roundedRating)].map((value, i) => (
-          <AiTwotoneStar color="#ffbb00" key={i} />
-        ))}
-        {[...Array(5 - roundedRating)].map((value, i) => (
-          <AiOutlineStar key={i} strokeWidth={"1px"} />
-        ))}
-      </div>
+      <RatingStars rating={roundedRating} />
       <span className="text-gray-400">{`${reviewsCount} reviews`}</span>
     </div>
   );
 };
+
+export const RatingStars = ({
+  rating,
+  className = "",
+}: {
+  rating: number;
+  className?: string;
+}) => (
+  <div className={"flex" + " " + className}>
+    {[...Array(rating)].map((value, i) => (
+      <AiTwotoneStar color="#ffbb00" key={i} />
+    ))}
+    {[...Array(5 - rating)].map((value, i) => (
+      <AiOutlineStar key={i} strokeWidth={"1px"} />
+    ))}
+  </div>
+);
 
 const CategoriesSection = ({ categories }: { categories: any[] }) => (
   <div className="mt-4 flex gap-1">

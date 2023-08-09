@@ -23,10 +23,8 @@ const TokenRefresher = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!response?.data.token) {
-      localStorage.removeItem("token");
       return dispatch({ type: "LOGOUT" });
     }
-    localStorage.setItem("token", response.data.token);
     dispatch({ type: "LOGIN", payload: jwtDecode(response.data.token) });
   }, [response]);
 

@@ -1,4 +1,4 @@
-import { Book } from "@/components/BooksGroup";
+import { Book } from "@/components/BookCard";
 import axios from "./axios";
 
 export const addBook = async (data: any) => {

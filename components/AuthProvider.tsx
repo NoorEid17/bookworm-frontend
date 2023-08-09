@@ -12,8 +12,7 @@ import * as UserAPI from "@/api/user";
 import Spinner from "./Spinner";
 import axios from "@/api/axios";
 
-const initialState = () => {
-  const token = localStorage.getItem("token");
+const initialState = (token?: string) => {
   if (token) {
     return {
       isAuthenticated: true,
@@ -53,11 +52,17 @@ export type AuthContext = {
 
 export const AuthContext = createContext<AuthContext>({
   state: initialState(),
-  dispatch: (() => null) as Dispatch<any>,
+  dispatch: () => null,
 });
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState());
+export const AuthProvider = ({
+  children,
+  token,
+}: {
+  children: ReactNode;
+  token: string;
+}) => {
+  const [state, dispatch] = useReducer(authReducer, initialState(token));
   const {
     error,
     data: response,
