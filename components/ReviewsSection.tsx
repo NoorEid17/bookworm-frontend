@@ -52,13 +52,15 @@ export const ReviewsSection = ({ bookId }: { bookId: number }) => {
       ) : (
         <>
           <h3 className="text-2xl text-primary font-bold mb-5">Reviews: </h3>
-          {data?.pages.map((page) =>
-            page.reviews
-              .filter((review: Review) => review.reviewId !== myReviewId)
-              .map((review: Review) => {
-                return <ReviewCard review={review} />;
-              })
-          )}
+          <section className="flex flex-col gap-8">
+            {data?.pages.map((page) =>
+              page.reviews
+                .filter((review: Review) => review.reviewId !== myReviewId)
+                .map((review: Review) => {
+                  return <ReviewCard review={review} />;
+                })
+            )}
+          </section>
         </>
       )}
     </section>
