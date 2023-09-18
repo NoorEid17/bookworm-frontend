@@ -7,7 +7,7 @@ export interface Book {
   bookId: number;
   title: string;
   description: string;
-  cover: string | null;
+  cover: string;
   slug: string;
   averageRating: number;
   Categories: any[];

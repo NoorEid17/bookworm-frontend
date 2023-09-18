@@ -77,6 +77,9 @@ export const AuthProvider = ({
     if (!response) {
       return;
     }
+    if (error) {
+      return;
+    }
     const token = response?.data.token;
     axios.defaults.headers["Authorization"] = `bearer ${token}`;
     if (response?.statusText !== "OK") {

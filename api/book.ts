@@ -21,6 +21,19 @@ interface BooksResponse {
 }
 
 export const fetchBooks = async ({ pageParam = 1 }): Promise<BooksResponse> => {
-  const { data } = await axios.get(`/book?page=${pageParam}`);
+  const { data } = await axios.get(`/book?page=${pageParam}&size=6`);
+  return data;
+};
+
+export const searchBooks = async ({
+  pageParam = 1,
+  searchQuery,
+}: {
+  searchQuery: string;
+  pageParam?: number;
+}): Promise<BooksResponse> => {
+  const { data } = await axios.get(
+    `/book/search?page=${pageParam}&size=6&searchQuery=${searchQuery}`
+  );
   return data;
 };

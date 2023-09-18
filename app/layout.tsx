@@ -43,7 +43,7 @@ export default async function RootLayout({
           <Navbar />
           {children}
           <ToastContainer position="top-right" />
-          <ReactQueryDevtools />
+          {/* <ReactQueryDevtools /> */}
         </Providers>
       </body>
     </html>

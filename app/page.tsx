@@ -2,6 +2,7 @@
 
 import { fetchBooks } from "@/api/book";
 import BookCard from "@/components/BookCard";
+import SearchBar from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import Spinner from "@/components/Spinner";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -63,7 +64,10 @@ const BooksWrapper = () => {
 export default function Home() {
   return (
     <main className="mt-8 grid grid-cols-5 px-10">
-      <BooksWrapper />
+      <div className="col-span-4">
+        <SearchBar />
+        <BooksWrapper />
+      </div>
       <Sidebar />
     </main>
   );
