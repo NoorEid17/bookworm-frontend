@@ -1,6 +1,6 @@
 This is an app for reviewing and rating books
 
-![screenshot1](https://github.com/NoorEid17/bookworm-frontend/assets/52053507/0fa5578a-2a03-4537-b4ba-3add5b942ad3)
+![Annotation 2023-09-18 103250](https://github.com/NoorEid17/bookworm-frontend/assets/52053507/98cb5836-8c31-488d-b371-8237a30972b1)
 
 ## Getting Started
 
