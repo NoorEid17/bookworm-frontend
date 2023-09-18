@@ -18,7 +18,7 @@ async function page({
   return (
     <div className="p-10 px-20">
       <h1 className="text-3xl text-primary mb-10">Search Results: </h1>
-      <div className="flex gap-10 w-1/2">
+      <div className="flex flex-col gap-10 w-1/2">
         {books.map((book) => (
           <WideBookCard book={book} key={book.bookId} />
         ))}

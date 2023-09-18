@@ -37,3 +37,16 @@ export const searchBooks = async ({
   );
   return data;
 };
+
+export const fetchBooksByCategorySlug = async ({
+  pageParam = 1,
+  slug,
+}: {
+  slug: string;
+  pageParam?: number;
+}): Promise<BooksResponse> => {
+  const { data } = await axios.get(
+    `/book/category?page=${pageParam}&slug=${slug}`
+  );
+  return data;
+};

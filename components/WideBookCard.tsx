@@ -18,7 +18,7 @@ const WideBookCard = ({ book }: { book: Book }) => {
         <Link href={"/book/" + book.slug} className="text-3xl text-primary">
           {book.title}
         </Link>
-        <p>{book.description}</p>
+        <p className="h-28 overflow-hidden">{book.description}</p>
       </div>
     </div>
   );
