@@ -8,7 +8,7 @@ const SearchBar = () => {
   const { register } = useForm();
   return (
     <form
-      className="flex gap-2 justify-between mr-20 items-center bg-white rounded-md shadow-md"
+      className="flex gap-2 justify-between mr-20 items-center bg-white rounded-md shadow-md mb-28"
       method="GET"
       action={"search"}
     >
